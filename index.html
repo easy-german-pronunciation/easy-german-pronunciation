@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy German Pronunciation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        /* Header / Navbar */
+        header {
+            background: #ffffff;
+            padding: 20px 8%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #0d6efd;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #0d6efd, #0d47a1);
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        /* Category Section */
+        .categories-container {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 28px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border: 1px solid #eee;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(13, 110, 253, 0.15);
+            border-color: #0d6efd;
+        }
+
+        .card-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #111;
+        }
+
+        .card p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .btn-card {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0d6efd;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .btn-card:hover {
+            background-color: #0b5ed7;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">🇩🇪 Easy German Pronunciation</div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>সহজেই সঠিক জার্মান উচ্চারণ শিখুন</h1>
+        <p>আপনার লেভেল সিলেক্ট করুন এবং প্রোনুন্সিয়েশনসহ নতুন শব্দার্থ চর্চা শুরু করুন</p>
+    </section>
+
+    <!-- Main Options/Categories -->
+    <section class="categories-container">
+        <h2 class="section-title">শব্দার্থ ও উচ্চারণ ক্যাটাগরি</h2>
+        
+        <div class="grid-container">
+            <!-- Greetings Option -->
+            <div class="card">
+                <div class="card-icon">👋</div>
+                <h3>Greetings</h3>
+                <p>দৈনন্দিন সাধারণ অভিবাদন ও কথোপকথনের বাক্য।</p>
+                <a href="#" class="btn-card">Start Learning</a>
+            </div>
+
+            <!-- A1 Option -->
+            <div class="card">
+                <div class="card-icon">📘</div>
+                <h3>A1 Level</h3>
+                <p>প্রাথমিক পর্যায়ের প্রয়োজনীয় ভোকাবুলারি ও উচ্চারণ।</p>
+                <a href="#" class="btn-card">Start Learning</a>
+            </div>
+
+            <!-- A2 Option -->
+            <div class="card">
+                <div class="card-icon">📙</div>
+                <h3>A2 Level</h3>
+                <p>মাঝারি পর্যায়ের শব্দার্থ ও সঠিক অডিও গাইড।</p>
+                <a href="#" class="btn-card">Start Learning</a>
+            </div>
+
+            <!-- B1 Option -->
+            <div class="card">
+                <div class="card-icon">📕</div>
+                <h3>B1 Level</h3>
+                <p>অ্যাডভান্সড শব্দভাণ্ডার ও স্পষ্ট উচ্চারণ চর্চা।</p>
+                <a href="#" class="btn-card">Start Learning</a>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
+
