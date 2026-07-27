@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>জার্মান উচ্চারণ চেকার - Pro</title>
+    <title>জার্মান উচ্চারণ চেকার - Greetings</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
         body { background: #eef2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
         .checker-card { background: #ffffff; width: 100%; max-width: 480px; border-radius: 20px; padding: 30px 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); text-align: center; }
-        .header-title { font-size: 24px; font-weight: 700; color: #1a252f; margin-bottom: 5px; }
-        .score-board { font-size: 16px; color: #555; margin-bottom: 20px; font-weight: 600; }
-        .word-display { font-size: 30px; font-weight: bold; color: #2c3e50; margin-bottom: 2px; }
-        .phonetic-guide { font-size: 14px; color: #e67e22; font-weight: 600; margin-bottom: 8px; }
+        .header-title { font-size: 22px; font-weight: 700; color: #1a252f; margin-bottom: 5px; }
+        .score-board { font-size: 16px; color: #2980b9; margin-bottom: 20px; font-weight: bold; background: #ebf5fb; padding: 8px; border-radius: 10px; display: inline-block; }
+        .word-display { font-size: 28px; font-weight: bold; color: #2c3e50; margin-bottom: 4px; }
+        .phonetic-guide { font-size: 15px; color: #e67e22; font-weight: 600; margin-bottom: 6px; }
         .translation-display { font-size: 15px; color: #7f8c8d; margin-bottom: 20px; }
         
-        .speed-control { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; }
-        .speed-btn { background: #f0f0f0; border: 1px solid #ccc; padding: 5px 12px; border-radius: 15px; cursor: pointer; font-size: 12px; font-weight: bold; }
+        .speed-control { display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 18px; }
+        .speed-btn { background: #f0f0f0; border: 1px solid #ccc; padding: 6px 12px; border-radius: 15px; cursor: pointer; font-size: 13px; font-weight: bold; }
         .speed-btn.active { background: #2980b9; color: white; border-color: #2980b9; }
 
         .btn { width: 100%; padding: 14px; margin: 8px 0; border: none; border-radius: 30px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
@@ -24,7 +24,7 @@
         .btn-record.recording { background-color: #e74c3c; animation: pulse 1.2s infinite; }
         .btn-next { background-color: #8e44ad; color: white; margin-top: 15px; }
 
-        .feedback-box { margin-top: 20px; padding: 15px; border-radius: 12px; display: none; text-align: left; font-size: 14px; }
+        .feedback-box { margin-top: 15px; padding: 12px; border-radius: 12px; display: none; text-align: left; font-size: 14px; line-height: 1.4; }
         .feedback-box.correct { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
         .feedback-box.incorrect { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
 
@@ -35,15 +35,15 @@
 
 <div class="checker-card">
     <h2 class="header-title">🇩🇪 প্রফেশনাল প্রোনুন্সিয়েশন চেকার</h2>
-    <div class="score-board">স্কোর: <span id="score">0</span> / <span id="total">0</span></div>
+    <div class="score-board">স্কোর: <span id="score">0</span> / <span id="total">25</span></div>
 
     <div class="word-display" id="german-word">Hallo</div>
     <div class="phonetic-guide" id="phonetic-text">উচ্চারণ: [হাল্লো]</div>
-    <div class="translation-display" id="english-meaning">(Hello)</div>
+    <div class="translation-display" id="english-meaning">(Hello - হ্যালো / হে)</div>
 
     <!-- Speed Controls -->
     <div class="speed-control">
-        <span>অডিও গতি:</span>
+        <span>গতি:</span>
         <button class="speed-btn" onclick="setSpeed(0.5, this)">🐢 ধীর (0.5x)</button>
         <button class="speed-btn active" onclick="setSpeed(0.8, this)">⚡ স্বাভাবিক</button>
     </div>
@@ -58,13 +58,31 @@
 
 <script>
     const vocabularyList = [
-        { german: "Hallo", english: "Hello", phonetic: "হাল্লো", hint: "H অক্ষর পরিষ্কার উচ্চারণ করুন" },
-        { german: "Guten Morgen", english: "Good morning", phonetic: "গুটেন মর্গেন", hint: "Morgen এ r উচ্চারণ হালকা হবে" },
-        { german: "Guten Tag", english: "Good day", phonetic: "গুটেন টাখ", hint: "Tag-এর g শেষে 'খ' এর মত শোনায়" },
-        { german: "Guten Abend", english: "Good evening", phonetic: "গুটেন আবেন্দ", hint: "d এর উচ্চারণ ত/দ এর মাঝামাঝি" },
-        { german: "Gute Nacht", english: "Good night", phonetic: "গুটো নাখট", hint: "ch এর উচ্চারণ 'খ' হবে" },
-        { german: "Auf Wiedersehen", english: "Goodbye", phonetic: "আউফ ভিডারজেহেন", hint: "W এর উচ্চারণ ইংরেজি V এর মত" },
-        { german: "Tschüss", english: "Bye", phonetic: "চুস", hint: "ü এর জন্য মুখ গোল করে বাতাস বের করুন" }
+        { german: "Hallo", english: "Hello / হ্যালো", phonetic: "হাল্লো", hint: "H পরিষ্কার উচ্চারণ করুন" },
+        { german: "Guten Morgen", english: "Good morning / শুভ সকাল", phonetic: "গুটেন মর্গেন", hint: "Morgen-এর r হালকা শোনায়" },
+        { german: "Guten Tag", english: "Good day / শুভ দিন", phonetic: "গুটেন টাখ", hint: "Tag-এর g শেষে 'খ' শোনায়" },
+        { german: "Guten Abend", english: "Good evening / শুভ সন্ধ্যা", phonetic: "গুটেন আবেন্দ", hint: "d এর উচ্চারণ সফট হবে" },
+        { german: "Gute Nacht", english: "Good night / শুভ রাত্রি", phonetic: "গুটো নাখট", hint: "ch এর উচ্চারণ 'খ' হবে" },
+        { german: "Auf Wiedersehen", english: "Goodbye / বিদায় (আনুষ্ঠানিক)", phonetic: "আউফ ভিডারজেহেন", hint: "W এর উচ্চারণ V এর মত" },
+        { german: "Auf Wiederhören", english: "Goodbye (on phone) / ফোনে বিদায়", phonetic: "আউফ ভিডারহোরেন", hint: "ফোনে কথা শেষে ব্যবহৃত হয়" },
+        { german: "Tschüss", english: "Bye / বিদায় (অনানুষ্ঠানিক)", phonetic: "চুস", hint: "ü এর জন্য মুখ গোল করে উচ্চারণ করুন" },
+        { german: "Bis später", english: "See you later / পরে দেখা হবে", phonetic: "বিস শ্পেটার", hint: "Sp এর উচ্চারণ 'শ্প' হবে" },
+        { german: "Bis Morgen", english: "See you tomorrow / আগামীকাল দেখা হবে", phonetic: "বিস মর্গেন", hint: "Morgen বড় হাতের M দিয়ে শুরু" },
+        { german: "Bis bald", english: "See you soon / শীঘ্রই দেখা হবে", phonetic: "বিস বাল্ট", hint: "d শেষে 'ট/ড' এর মতো শোনায়" },
+        { german: "Wie geht es Ihnen?", english: "How are you? (Formal) / আপনি কেমন আছেন?", phonetic: "ভি গেট এস ইহেনেন?", hint: "Ihnen সম্মানসূচক 'আপনি' এর জন্য" },
+        { german: "Wie geht's?", english: "How are you? (Informal) / কেমন আছো?", phonetic: "ভি গেটস?", hint: "বন্ধুদের জিজ্ঞেস করার জন্য" },
+        { german: "Gut", english: "Good / ভালো", phonetic: "গুট", hint: "t স্পষ্ট উচ্চারণ করুন" },
+        { german: "Schlecht", english: "Bad / খারাপ", phonetic: "শ্লেখট", hint: "Sch = 'শ', ch = 'খ'" },
+        { german: "Es geht", english: "So so / মোটামুটি", phonetic: "এস গেট", hint: "চলনসই বোঝাতে ব্যবহৃত হয়" },
+        { german: "Gleichfalls", english: "Same to you / আপনাকেও", phonetic: "গ্লাইখফালস", hint: "ধন্যবাদ বা শুভেচ্ছার জবাবে" },
+        { german: "Wie heißen Sie?", english: "What is your name? (Formal) / আপনার নাম কি?", phonetic: "ভি হাইসেন জি?", hint: "Sie হলো আপনি" },
+        { german: "Wie heißt du?", english: "What is your name? (Informal) / তোমার নাম কি?", phonetic: "ভি হাইস্ট দু?", hint: "du হলো তুমি" },
+        { german: "Ich heiße Niko", english: "My name is Niko / আমার নাম নিকো", phonetic: "ইখ হাইসে নিকো", hint: "Ich = 'ইখ'" },
+        { german: "Woher kommen Sie?", english: "Where are you from? (Formal) / আপনি কোথা থেকে এসেছেন?", phonetic: "ভোহের কোমেন জি?", hint: "Woher = কোথা থেকে" },
+        { german: "Woher kommst du?", english: "Where are you from? (Informal) / তুমি কোথা থেকে এসেছ?", phonetic: "ভোহের কোমস্ট দু?", hint: "Kommst শেষে st যুক্ত হয়" },
+        { german: "Ich komme aus BD", english: "I come from Bangladesh / আমি বাংলাদেশ থেকে এসেছি", phonetic: "ইখ কোমে আউস বিডি", hint: "aus = হতে/থেকে" },
+        { german: "Danke", english: "Thank you / ধন্যবাদ", phonetic: "দাংকে", hint: "সাধারণ ধন্যবাদ জানানোর শব্দ" },
+        { german: "Bitte", english: "Please / Welcome / আপনাকে স্বাগতম", phonetic: "বিট্যো", hint: "অনুরোধ বা স্বাগতম জানাতে" }
     ];
 
     let currentIndex = 0;
@@ -121,14 +139,14 @@
             recordBtn.classList.remove('recording');
             recordBtn.textContent = "🎙️ উচ্চারণ রেকর্ড করুন";
             const spokenText = event.results[0][0].transcript.toLowerCase().trim();
-            const targetText = vocabularyList[currentIndex].german.toLowerCase().trim();
+            const targetText = vocabularyList[currentIndex].german.toLowerCase().replace(/[?']/g, '').trim();
 
             if (spokenText.includes(targetText) || targetText.includes(spokenText)) {
                 score++;
                 scoreEl.textContent = score;
-                showFeedback(true, `<b>অসাধারণ! সঠিক হয়েছে 🎉</b><br>আপনি সঠিক উচ্চারণ করেছেন।`);
+                showFeedback(true, `<b>অসাধারণ! সঠিক হয়েছে 🎉</b><br>আপনি সুন্দর উচ্চারণ করেছেন!`);
             } else {
-                showFeedback(false, `<b>আরেকটু চেষ্টা করুন ❌</b><br>আপনি বলেছেন: "<i>${spokenText}</i>"<br><b>টিপস:</b> ${vocabularyList[currentIndex].hint}`);
+                showFeedback(false, `<b>আরেকটু চেষ্টা করুন ❌</b><br>আপনার রেকর্ড: "<i>${spokenText}</i>"<br><b>টিপস:</b> ${vocabularyList[currentIndex].hint}`);
             }
         };
 
@@ -149,7 +167,7 @@
             currentIndex++;
             loadWord();
         } else {
-            alert(`অনুশীলন সম্পন্ন! আপনার স্কোর: ${score}/${vocabularyList.length}`);
+            alert(`অভিনন্দন! ২৫টি অনুশীলন সম্পন্ন হয়েছে। আপনার স্কোর: ${score}/${vocabularyList.length}`);
             currentIndex = 0; score = 0; scoreEl.textContent = score; loadWord();
         }
     }
