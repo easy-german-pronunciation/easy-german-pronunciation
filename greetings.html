@@ -3,154 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>জার্মান উচ্চারণ চেকার - Greetings</title>
+    <title>জার্মান উচ্চারণ চেকার - Pro</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Arial, sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background: #eef2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .checker-card { background: #ffffff; width: 100%; max-width: 480px; border-radius: 20px; padding: 30px 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); text-align: center; }
+        .header-title { font-size: 24px; font-weight: 700; color: #1a252f; margin-bottom: 5px; }
+        .score-board { font-size: 16px; color: #555; margin-bottom: 20px; font-weight: 600; }
+        .word-display { font-size: 30px; font-weight: bold; color: #2c3e50; margin-bottom: 2px; }
+        .phonetic-guide { font-size: 14px; color: #e67e22; font-weight: 600; margin-bottom: 8px; }
+        .translation-display { font-size: 15px; color: #7f8c8d; margin-bottom: 20px; }
+        
+        .speed-control { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; }
+        .speed-btn { background: #f0f0f0; border: 1px solid #ccc; padding: 5px 12px; border-radius: 15px; cursor: pointer; font-size: 12px; font-weight: bold; }
+        .speed-btn.active { background: #2980b9; color: white; border-color: #2980b9; }
 
-        body {
-            background: #eef2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
+        .btn { width: 100%; padding: 14px; margin: 8px 0; border: none; border-radius: 30px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
+        .btn-listen { background-color: #2980b9; color: white; }
+        .btn-record { background-color: #27ae60; color: white; }
+        .btn-record.recording { background-color: #e74c3c; animation: pulse 1.2s infinite; }
+        .btn-next { background-color: #8e44ad; color: white; margin-top: 15px; }
 
-        .checker-card {
-            background: #ffffff;
-            width: 100%;
-            max-width: 480px;
-            border-radius: 20px;
-            padding: 30px 25px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            text-align: center;
-        }
+        .feedback-box { margin-top: 20px; padding: 15px; border-radius: 12px; display: none; text-align: left; font-size: 14px; }
+        .feedback-box.correct { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .feedback-box.incorrect { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
 
-        .header-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1a252f;
-            margin-bottom: 5px;
-        }
-
-        .score-board {
-            font-size: 16px;
-            color: #555;
-            margin-bottom: 25px;
-            font-weight: 600;
-        }
-
-        .instruction {
-            font-size: 15px;
-            color: #666;
-            margin-bottom: 15px;
-        }
-
-        .word-display {
-            font-size: 28px;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 5px;
-        }
-
-        .translation-display {
-            font-size: 16px;
-            color: #7f8c8d;
-            margin-bottom: 25px;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 14px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 30px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .btn-listen {
-            background-color: #2980b9;
-            color: white;
-        }
-
-        .btn-listen:hover {
-            background-color: #1c638e;
-        }
-
-        .btn-record {
-            background-color: #27ae60;
-            color: white;
-        }
-
-        .btn-record:hover {
-            background-color: #1e8449;
-        }
-
-        .btn-record.recording {
-            background-color: #e74c3c;
-            animation: pulse 1.2s infinite;
-        }
-
-        .btn-next {
-            background-color: #8e44ad;
-            color: white;
-            margin-top: 15px;
-        }
-
-        .btn-next:hover {
-            background-color: #6c3483;
-        }
-
-        .feedback-box {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 12px;
-            display: none;
-            text-align: left;
-            font-size: 14px;
-        }
-
-        .feedback-box.correct {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .feedback-box.incorrect {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.6; }
-            100% { opacity: 1; }
-        }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
     </style>
 </head>
 <body>
 
 <div class="checker-card">
-    <h2 class="header-title">🇩🇪 জার্মান উচ্চারণ চেকার</h2>
+    <h2 class="header-title">🇩🇪 প্রফেশনাল প্রোনুন্সিয়েশন চেকার</h2>
     <div class="score-board">স্কোর: <span id="score">0</span> / <span id="total">0</span></div>
 
-    <p class="instruction">নিচের বাক্যটি সঠিক জার্মানে উচ্চারণ করুন:</p>
-    
     <div class="word-display" id="german-word">Hallo</div>
+    <div class="phonetic-guide" id="phonetic-text">উচ্চারণ: [হাল্লো]</div>
     <div class="translation-display" id="english-meaning">(Hello)</div>
+
+    <!-- Speed Controls -->
+    <div class="speed-control">
+        <span>অডিও গতি:</span>
+        <button class="speed-btn" onclick="setSpeed(0.5, this)">🐢 ধীর (0.5x)</button>
+        <button class="speed-btn active" onclick="setSpeed(0.8, this)">⚡ স্বাভাবিক</button>
+    </div>
 
     <button class="btn btn-listen" onclick="playAudio()">🔊 সঠিক উচ্চারণ শুনুন</button>
     <button class="btn btn-record" id="record-btn" onclick="startRecognition()">🎙️ উচ্চারণ রেকর্ড করুন</button>
@@ -161,37 +57,22 @@
 </div>
 
 <script>
-    // খাতার ছবি থেকে নেওয়া সম্পূর্ণ ২৫টি শব্দার্থ ও উচ্চারণ গাইড
     const vocabularyList = [
-        { german: "Hallo", english: "Hello", hint: "হাল্লো" },
-        { german: "Guten Morgen", english: "Good morning", hint: "গুটেন মর্গেন" },
-        { german: "Guten Tag", english: "Good day", hint: "গুটেন টাখ (g এর উচ্চারণ খ-এর মতো)" },
-        { german: "Guten Abend", english: "Good evening", hint: "গুটেন আবেন্দ" },
-        { german: "Gute Nacht", english: "Good night", hint: "গুটো নাখট" },
-        { german: "Auf Wiedersehen", english: "Goodbye / See you again", hint: "আউফ ভিডারজেহেন (W = V এর মতো)" },
-        { german: "Auf Wiederhören", english: "Goodbye (telephone)", hint: "আউফ ভিডারহোরেন" },
-        { german: "Tschüss", english: "Bye", hint: "চুস" },
-        { german: "Bis später", english: "See you later", hint: "বিস শপেটার" },
-        { german: "Bis Morgen", english: "See you tomorrow", hint: "বিস মর্গেন" },
-        { german: "Bis bald", english: "Until soon", hint: "বিস বাল্ড" },
-        { german: "Wie geht es Ihnen?", english: "How are you? (formal)", hint: "ভি গেট এস ইহেনেন?" },
-        { german: "Wie geht's?", english: "How are you? (informal)", hint: "ভি গেটস?" },
-        { german: "Gut", english: "Good", hint: "গুট" },
-        { german: "Schlecht", english: "Bad", hint: "শলেখট" },
-        { german: "Es geht", english: "I'm ok", hint: "এস গেট" },
-        { german: "Gleichfalls", english: "Likewise / Same to you", hint: "গ্লাইখফালস" },
-        { german: "Wie heißen Sie?", english: "What's your name? (formal)", hint: "ভি হাইসেন জি?" },
-        { german: "Wie heißt du?", english: "What's your name? (informal)", hint: "ভি হাইস্ট দু?" },
-        { german: "Ich heiße Niko", english: "My name is Nico", hint: "ইখ হাইসে নিকো" },
-        { german: "Woher kommen Sie?", english: "Where do you come from? (formal)", hint: "ভোহের খমেন জি?" },
-        { german: "Woher kommst du?", english: "Where do you come from? (informal)", hint: "ভোহের খমস্ট দু?" },
-        { german: "Ich komme aus BD", english: "I came from BD", hint: "ইখ খমে আউস বাংলাদেশ" }
+        { german: "Hallo", english: "Hello", phonetic: "হাল্লো", hint: "H অক্ষর পরিষ্কার উচ্চারণ করুন" },
+        { german: "Guten Morgen", english: "Good morning", phonetic: "গুটেন মর্গেন", hint: "Morgen এ r উচ্চারণ হালকা হবে" },
+        { german: "Guten Tag", english: "Good day", phonetic: "গুটেন টাখ", hint: "Tag-এর g শেষে 'খ' এর মত শোনায়" },
+        { german: "Guten Abend", english: "Good evening", phonetic: "গুটেন আবেন্দ", hint: "d এর উচ্চারণ ত/দ এর মাঝামাঝি" },
+        { german: "Gute Nacht", english: "Good night", phonetic: "গুটো নাখট", hint: "ch এর উচ্চারণ 'খ' হবে" },
+        { german: "Auf Wiedersehen", english: "Goodbye", phonetic: "আউফ ভিডারজেহেন", hint: "W এর উচ্চারণ ইংরেজি V এর মত" },
+        { german: "Tschüss", english: "Bye", phonetic: "চুস", hint: "ü এর জন্য মুখ গোল করে বাতাস বের করুন" }
     ];
 
     let currentIndex = 0;
     let score = 0;
+    let audioRate = 0.8;
 
     const wordEl = document.getElementById('german-word');
+    const phoneticEl = document.getElementById('phonetic-text');
     const meaningEl = document.getElementById('english-meaning');
     const scoreEl = document.getElementById('score');
     const totalEl = document.getElementById('total');
@@ -203,30 +84,34 @@
     function loadWord() {
         const current = vocabularyList[currentIndex];
         wordEl.textContent = current.german;
+        phoneticEl.textContent = `উচ্চারণ: [${current.phonetic}]`;
         meaningEl.textContent = `(${current.english})`;
         feedbackEl.style.display = "none";
+    }
+
+    function setSpeed(speed, btn) {
+        audioRate = speed;
+        document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
     }
 
     function playAudio() {
         const current = vocabularyList[currentIndex];
         const utterance = new SpeechSynthesisUtterance(current.german);
         utterance.lang = 'de-DE';
-        utterance.rate = 0.8;
+        utterance.rate = audioRate;
         window.speechSynthesis.speak(utterance);
     }
 
     function startRecognition() {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
         if (!SpeechRecognition) {
-            alert("আপনার ব্রাউজারে ভয়েস সাপোর্ট নেই। Google Chrome ব্যবহার করুন।");
+            alert("অনুগ্রহ করে Google Chrome ব্রাউজার ব্যবহার করুন।");
             return;
         }
 
         const recognition = new SpeechRecognition();
         recognition.lang = 'de-DE';
-        recognition.interimResults = false;
-
         recordBtn.classList.add('recording');
         recordBtn.textContent = "🎙️ শুনছি... বলুন!";
 
@@ -235,39 +120,22 @@
         recognition.onresult = function(event) {
             recordBtn.classList.remove('recording');
             recordBtn.textContent = "🎙️ উচ্চারণ রেকর্ড করুন";
+            const spokenText = event.results[0][0].transcript.toLowerCase().trim();
+            const targetText = vocabularyList[currentIndex].german.toLowerCase().trim();
 
-            const spokenText = event.results[0][0].transcript.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
-            const targetText = vocabularyList[currentIndex].german.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
-
-            checkPronunciation(spokenText, targetText);
+            if (spokenText.includes(targetText) || targetText.includes(spokenText)) {
+                score++;
+                scoreEl.textContent = score;
+                showFeedback(true, `<b>অসাধারণ! সঠিক হয়েছে 🎉</b><br>আপনি সঠিক উচ্চারণ করেছেন।`);
+            } else {
+                showFeedback(false, `<b>আরেকটু চেষ্টা করুন ❌</b><br>আপনি বলেছেন: "<i>${spokenText}</i>"<br><b>টিপস:</b> ${vocabularyList[currentIndex].hint}`);
+            }
         };
 
-        recognition.onerror = function() {
+        recognition.onerror = recognition.onspeechend = function() {
             recordBtn.classList.remove('recording');
             recordBtn.textContent = "🎙️ উচ্চারণ রেকর্ড করুন";
-            showFeedback(false, "কথা পরিষ্কার বোঝা যায়নি, আবার চেষ্টা করুন!");
         };
-
-        recognition.onspeechend = function() {
-            recognition.stop();
-            recordBtn.classList.remove('recording');
-            recordBtn.textContent = "🎙️ উচ্চারণ রেকর্ড করুন";
-        };
-    }
-
-    function checkPronunciation(spoken, target) {
-        if (spoken === target || target.includes(spoken) || spoken.includes(target)) {
-            score++;
-            scoreEl.textContent = score;
-            showFeedback(true, `<b>সঠিক হয়েছে! 🎉</b><br>আপনি বলেছেন: "<i>${spoken}</i>"`);
-        } else {
-            const current = vocabularyList[currentIndex];
-            showFeedback(false, `
-                <b>ভুল হয়েছে! ❌</b><br>
-                আপনি বলেছেন: "<i>${spoken}</i>"<br>
-                <b>সাজেশন:</b> উচ্চারণ করার সময় খেয়াল রাখুন -> <b>${current.hint}</b>
-            `);
-        }
     }
 
     function showFeedback(isCorrect, message) {
@@ -281,16 +149,12 @@
             currentIndex++;
             loadWord();
         } else {
-            alert(`অভিনন্দন! আপনি সবগুলো অনুশীলন শেষ করেছেন। আপনার স্কোর: ${score}/${vocabularyList.length}`);
-            currentIndex = 0;
-            score = 0;
-            scoreEl.textContent = score;
-            loadWord();
+            alert(`অনুশীলন সম্পন্ন! আপনার স্কোর: ${score}/${vocabularyList.length}`);
+            currentIndex = 0; score = 0; scoreEl.textContent = score; loadWord();
         }
     }
 
     loadWord();
 </script>
-
 </body>
 </html>
